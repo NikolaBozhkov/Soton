@@ -8,11 +8,12 @@ public abstract class ToggleAppliance extends Appliance {
         super(electricityUse, gasUse, waterUse, TIME_ON);
     }
 
-    public void turnOn() {
-        this.currentState = State.ON;
-    }
-
-    public void turnOff() {
-        this.currentState = State.OFF;
+    @Override
+    public void use() {
+        if (this.getCurrentState() == State.ON) {
+            this.setCurrentState(State.OFF);
+        } else {
+            this.setCurrentState(State.ON);
+        }
     }
 }

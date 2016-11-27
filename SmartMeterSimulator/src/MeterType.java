@@ -8,7 +8,7 @@ public enum MeterType {
 
     private final String text;
 
-    private MeterType(final String text) {
+    MeterType(final String text) {
         this.text = text;
     }
 

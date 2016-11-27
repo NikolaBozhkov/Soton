@@ -8,7 +8,7 @@ public class WaterMeter extends Meter {
     }
 
     @Override
-    public String getType() {
-        return MeterType.WATER.toString();
+    public MeterType getType() {
+        return MeterType.WATER;
     }
 }

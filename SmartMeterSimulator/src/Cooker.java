@@ -7,7 +7,8 @@ public abstract class Cooker extends Appliance {
         super(electricityUse, gasUse, waterUse, timeOn);
     }
 
-    public void cook() {
-
+    @Override
+    public ApplianceType getType() {
+        return ApplianceType.COOKER;
     }
 }

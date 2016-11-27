@@ -1,21 +1,20 @@
-import java.util.HashSet;
-
 /**
  * Created by nikolabozhkov on 11/23/16.
  */
 public abstract class Appliance extends TimeAffected {
 
-    protected int electricityUse;
-    protected int gasUse;
-    protected int waterUse;
+    private State currentState;
 
-    protected ElectricMeter electricMeter;
-    protected GasMeter gasMeter;
-    protected WaterMeter waterMeter;
+    private int electricityUse;
+    private int gasUse;
+    private int waterUse;
+
+    private Meter electricMeter;
+    private Meter gasMeter;
+    private Meter waterMeter;
 
     // timeOn represents time by 15 minute intervals i.e. 2 = 30 minutes
-    protected int timeOn;
-    protected State currentState;
+    private int timeOn;
 
     protected Appliance(int electricityUse, int gasUse, int waterUse, int timeOn) {
         super();
@@ -25,16 +24,49 @@ public abstract class Appliance extends TimeAffected {
         this.timeOn = timeOn;
     }
 
-    public void setElectricMeter(ElectricMeter electricMeter) {
+    public int getElectricityUse() {
+        return this.electricityUse;
+    }
+
+    public int getGasUse() {
+        return this.gasUse;
+    }
+
+    public int getWaterUse() {
+        return this.waterUse;
+    }
+
+    public State getCurrentState() {
+        return this.currentState;
+    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+
+        // Print the state of the appliance
+        System.out.println(this.getClass().getName() + " is now " + currentState.toString());
+    }
+
+    public void setElectricMeter(Meter electricMeter) {
         this.electricMeter = electricMeter;
     }
 
-    public void setGasMeter(GasMeter gasMeter) {
+    public void setGasMeter(Meter gasMeter) {
         this.gasMeter = gasMeter;
     }
 
-    public void setWaterMeter(WaterMeter waterMeter) {
+    public void setWaterMeter(Meter waterMeter) {
         this.waterMeter = waterMeter;
+    }
+
+    public abstract ApplianceType getType();
+
+    /*
+     * Turns the appliance on and resets the ongoing timePassed if it was already on
+     */
+    public void use() {
+        this.setCurrentState(State.ON);
+        this.timePassed = 0;
     }
 
     @Override
@@ -42,19 +74,24 @@ public abstract class Appliance extends TimeAffected {
         if (this.currentState == State.ON) {
             super.timePasses();
 
-            this.electricMeter.incrementConsumed(this.electricityUse);
-            this.gasMeter.incrementConsumed(this.gasUse);
-            this.waterMeter.incrementConsumed(this.waterUse);
-//            for (Meter meter : this.meters) {
-//                // Find which type of meter this is and increment by appropriate type of consumption
-//                if (meter.getType().equals(MeterType.ELECTRIC.toString())) {
-//                    meter.incrementConsumed(this.electricityUse);
-//                } else if (meter.getType().equals((MeterType.GAS.toString()))) {
-//                    meter.incrementConsumed(this.gasUse);
-//                } else if (meter.getType().equals(MeterType.WATER.toString())) {
-//                    meter.incrementConsumed(this.waterUse);
-//                }
-//            }
+            // Only increment consumption if connected to meter
+            if (this.electricMeter != null) {
+                this.electricMeter.increaseConsumed(this.electricityUse);
+            }
+
+            if (this.gasMeter != null) {
+                this.gasMeter.increaseConsumed(this.gasUse);
+            }
+
+            if (this.waterMeter != null) {
+                this.waterMeter.increaseConsumed(this.waterUse);
+            }
+
+            // If the appliance finished it's task turn it off and reset the time since it's been on
+            if (this.timePassed == this.timeOn) {
+                this.setCurrentState(State.OFF);
+                this.timePassed = 0;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ public class ElectricMeter extends Meter {
     }
 
     @Override
-    public String getType() {
-        return MeterType.ELECTRIC.toString();
+    public MeterType getType() {
+        return MeterType.ELECTRIC;
     }
 }

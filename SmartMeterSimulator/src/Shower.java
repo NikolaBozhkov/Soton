@@ -7,7 +7,8 @@ public abstract class Shower extends Appliance {
         super(electricityUse, gasUse, waterUse, timeOn);
     }
 
-    public void shower() {
-
+    @Override
+    public ApplianceType getType() {
+        return ApplianceType.SHOWER;
     }
 }

@@ -5,17 +5,9 @@ public abstract class Meter {
     public static final int DEFAULT_CONSUMED = 0;
     public static final boolean DEFAULT_CAN_GENERATE = false;
 
-    protected int consumed;
-    protected int generated;
-    protected boolean canGenerate;
-
-    public Meter() {
-        this(0);
-    }
-
-    public Meter(int initialConsumed) {
-        this(initialConsumed, false);
-    }
+    private int consumed;
+    private int generated;
+    private boolean canGenerate;
 
     public Meter(int initialConsumed, boolean canGenerate) {
         this.generated = 0;
@@ -23,11 +15,11 @@ public abstract class Meter {
         this.canGenerate = canGenerate;
     }
 
-    public double getConsumed() {
+    public int getConsumed() {
         return this.consumed;
     }
 
-    public double getGenerated() {
+    public int getGenerated() {
         return this.generated;
     }
 
@@ -35,13 +27,13 @@ public abstract class Meter {
         return this.canGenerate;
     }
 
-    public abstract String getType();
+    public abstract MeterType getType();
 
     public void incrementConsumed() {
-        this.incrementConsumed(1);
+        this.consumed += 1;
     }
 
-    public void incrementConsumed(int consumption) {
+    public void increaseConsumed(int consumption) {
         this.consumed += consumption;
     }
 

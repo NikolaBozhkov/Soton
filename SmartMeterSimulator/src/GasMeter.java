@@ -8,7 +8,7 @@ public class GasMeter extends Meter {
     }
 
     @Override
-    public String getType() {
-        return MeterType.GAS.toString();
+    public MeterType getType() {
+        return MeterType.GAS;
     }
 }

@@ -12,13 +12,15 @@ public enum ApplianceType {
     NIGHT_LIGHT(1, 0, 0),
     REFRIGERATOR(1, 0, 0),
     TV(1, 0, 0),
-    WASHING_MACHINE(2, 0, 1);
+    WASHING_MACHINE(2, 0, 1),
+    COOKER(0, 0, 0),
+    SHOWER(0, 0, 0);
 
     public final int DEFAULT_ELECTRICITY_USE;
     public final int DEFAULT_GAS_USE;
     public final int DEFAULT_WATER_USE;
 
-    private ApplianceType(int electricityUse, int gasUse, int waterUse) {
+    ApplianceType(int electricityUse, int gasUse, int waterUse) {
         this.DEFAULT_ELECTRICITY_USE = electricityUse;
         this.DEFAULT_GAS_USE = gasUse;
         this.DEFAULT_WATER_USE = waterUse;
