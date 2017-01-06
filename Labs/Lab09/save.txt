@@ -1,0 +1,4 @@
+a, b, correct
+c, v, wrong
+e, c, wrong
+Questions asked - 3. Score - 33%.

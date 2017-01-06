@@ -1,0 +1,13 @@
+I have attempted and finished all parts of the coursework.
+The project has full documentation and is made as extensible as possible for more functionality and adding new appliances, tasks and other input parameters.
+
+It uses the default configuration file format.
+Can be ran with “java Main houseConfig.txt”
+
+The simulation runs forever.
+
+The extension I have implemented is a HouseLogger, which has functionality to log daily consumption of the house as well as the current state of the house(appliances running, people, tasks…)
+It creates new file if non is existent and appends to it if it is, so you can keep a long time record and maybe restore a house from a log file.
+If the logging fails there is an error logging to another file which says what failed and when.
+
+This extension required the overriding of toString() in almost all other base classes in order to provide a good description of the house’s state.
